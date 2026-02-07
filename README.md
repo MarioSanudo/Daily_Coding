@@ -64,16 +64,24 @@ Tests (si existen):
   pytest -q
 
 Instalar pytest (una vez, en tu venv):¡
+
 pip install pytest
 
 SQL (PostgreSQL)
+
 Normalmente en DBeaver:
+
 Ejecuta schema.sql (si el ejercicio trae esquema/datos)
+
 Ejecuta query.sql
 
+
+
 HTML/CSS
+
 Abre index.html en el navegador o usa Live Server (VS Code).
 
 
 Convención de nombres
+
 Carpetas: YYYY-MM-DD_nombre-corto/

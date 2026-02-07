@@ -12,3 +12,50 @@ Objetivo: ejercicios cortos, frecuentes y con verificación (tests o checks), or
 
 ## Estructura del repo
 
+saas-practice-lab/
+├─ python/
+│ ├─ 01-fundamentals/
+│ ├─ 02-advanced/
+│ └─ 03-saas-applied/
+├─ sql/
+│ ├─ 01-fundamentals/
+│ ├─ 02-advanced/
+│ └─ 03-saas-applied/
+├─ web/
+│ ├─ html/
+│ ├─ css/
+│ └─ saas-applied/
+└─ templates/
+└─ exercise_README.md
+
+
+---
+
+## Plantilla por ejercicio (carpeta)
+Cada ejercicio es una carpeta con:
+
+- `README.md` → resumen del enunciado + link a la fuente (si existe) + ejemplos
+- `solution.*` → mi solución final
+- `test_solution.py` o `tests/` → tests cuando tenga sentido
+- `notes.md` → aprendizajes y edge cases (opcional)
+
+Ejemplo:
+`python/01-fundamentals/2026-02-07_freq-counter/`
+
+---
+
+## Dificultad
+- **Easy (5–15 min)**: un concepto + 2–3 casos.
+- **Medium (15–40 min)**: varios casos borde + tests.
+- **Hard (45–120 min)**: mini-problemas tipo SaaS o SQL más serio.
+
+Voy alternando dificultad con el tiempo (no siempre “easy”).
+
+---
+
+## Cómo ejecutar
+
+### Python
+- Ejecutar solución:
+  ```bash
+  python solution.py

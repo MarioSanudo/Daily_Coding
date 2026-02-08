@@ -1,4 +1,4 @@
-from solution import word_freq, word_freq_2
+from solution import word_freq
 import pytest
 
 @pytest.mark.parametrize("texto, esperado",

@@ -57,4 +57,6 @@ def is_safe_next(next_url): #Se pasa solo la url_next, es decir a partir de la q
             return True
         
         return True
+    
+    return False
         

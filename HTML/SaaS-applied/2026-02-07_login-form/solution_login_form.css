@@ -1,0 +1,101 @@
+*{
+    background-color: rgb(255, 255, 255);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+#Titulo{
+    text-align: center;
+    color: #8CAB73;    
+    text-decoration: 30px;
+}
+
+.bloque{
+    background-color: #ffffff;
+    height:400px;
+    width:500px;
+    margin: 50px auto;
+    border: 2px #000000 solid;
+    border-radius: 15px;
+}
+
+.Titulo-form{
+    color: darkgray;
+    text-align: center;
+}
+
+.bloque-email-password{
+    background-color: #ffffff;
+    padding: 5px;
+    margin: 0px 7px 7px 7px;
+}
+
+
+.bloque-email-password h2{
+    text-align: center;
+}
+
+.bloque-email-password input{
+    width: 90%;
+    padding: 10px;
+}
+
+.bloque-submit label{
+    padding:5px ;
+    margin:7px;
+    display: inline-block;
+}
+
+.bloque form{
+    margin-top: 10px;  /* Fijándome en el código fuente de el login de google, veo que me daba problema el form con el border radius y pongo un margin top
+                        para así evitar el conflicto  */
+}
+
+.submit{
+    border: 2px #000000 solid;
+    padding: 5px;
+    width: 335px;
+    margin-left: 15px;
+}
+
+.submit:hover{
+    border: 2px #4058DD solid;
+    background-color: rgba(0, 123, 255, 0.7);
+    cursor: pointer;
+}
+
+
+.forgot-password{
+    border: 2px #000000 solid;
+    padding: 10px 50px;
+    width: auto;
+    margin: 20px;
+    text-align: center;
+}
+
+.forgot-password a{
+    text-decoration: none;
+}
+
+.forgot-password a:hover{
+    text-decoration: underline;
+}
+
+
+
+/*Responsive*/
+@media (max-width:480px){
+    .bloque{
+        width: 100%;
+        height: auto;
+    }
+
+    .submit{
+        width: 30%;
+        height: auto;
+    }
+
+    form{
+        width: 90%;
+        height: auto;
+    }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solución login_form</title>
+    <link rel="stylesheet" href="solution_login_form.css">
+</head>
+<body>
+    <h1 id="Titulo">Titulo del ejercicio del formulario</h1>
+    <div class="bloque">
+        <form action="/ruta_imaginaria" method="post">
+            <div class="bloque-email-password">
+                <h2 id="Titulo-form">Login</h2>
+                <hr>
+                <label for="email_id">Email</label>
+                <br>
+                <input type="email" id="email_id" name="email" required="True" autocomplete="email" placeholder="example@domain.com">
+            </div>
+
+            <div class="bloque-email-password">
+                <label for="password_id">Password</label>
+                <br>
+                <input type="password" id="password_id" name="password" required placeholder="">
+            </div>
+
+            <div class="bloque-submit">
+                <label for="checkbox_id">Recordar</label>
+                <input type="checkbox" id="checkbox_id" name="checkbox" class="button-recordar">
+                <input type="submit" name="Log in" class="submit">
+            </div>
+            <div class="forgot-password">
+                <a href="/pagina_olvidepassword">¿Olvidaste la contraseña?</a>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>

@@ -6,33 +6,50 @@ def retry(max_tries):   #Recibe los parametros del decorador
 
         def fun_envoltorio(*args, **kwargs):    #Recibe cualquier valor (lógica) para cualquier función válido
             i=0
-            while i <= max_tries:
+            while i < max_tries:
                 try:
                     i+=1
-                    print(i)
-                    resultado=func(*args,**kwargs)
-                    return resultado
-        
+                    valor=func(*args,**kwargs)  #Coge los valores de la funcion_1
+                    print(f"Funciono en el intento {i}")
+                    return valor
+
                 except Exception as e:
-                    retry  
+                    print(f"Fallo en el intento{i}")
+                    last_exception=e
+            
+            print(f"Se agotaron los intentos totales {i}")
+            raise last_exception #Se lanza al final
                 
         return fun_envoltorio      
 
     return decorador_apoyo
 
 
-@retry(max_tries=3)
-def funcion_1(*i):   #Coge el valor de los args
-    texto="Paco"
-    if i==1:
-        var=float(texto) #Fallo provocado
-    
-    elif i==2:
-        var=int(texto)
 
-    elif i==3:
-        var=texto.split()   #Esto ya es correcto
+def crear_func_x_veces(x):
+    dic={"Contador":0}  #Para poder definir el contador y que inice en 0, pero cada pasada no se resetee a 0, podría ser un simple i
 
-    return var
+    @retry(max_tries=3)
+    def falla_x_veces():   #Debería limitar max_tries que ejecuta la funcion
+        dic["Contador"]+=1
+        
+        if dic["Contador"] <= x:
+            raise ValueError    #Error cualquiera de prueba
 
-funcion_1()
+        return "OK"
+
+    return falla_x_veces
+
+
+
+#Fallo 2 veces la 3era funciona
+f = crear_func_x_veces(2)
+print(f())
+
+#Siempre falla
+f = crear_func_x_veces(6)
+print(f())
+
+
+"""Este ejercicio se ha simuldo que por ejemplo una api falla x veces por razones desconocidas por ejemplo sobrecarga del servidor, pero se vuelve a lanzar y 
+acaba corriendo o no.   Se ha utilizado ValueError a modo de prueba, podría usarse el propio del manejo de errores de esa función, o el general que recoge todo"""

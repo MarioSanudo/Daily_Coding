@@ -48,7 +48,7 @@ print(f())
 
 #Siempre falla
 f = crear_func_x_veces(6)
-print(f())
+#print(f())
 
 
 """Este ejercicio se ha simuldo que por ejemplo una api falla x veces por razones desconocidas por ejemplo sobrecarga del servidor, pero se vuelve a lanzar y 

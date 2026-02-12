@@ -65,20 +65,23 @@ class DB_connection():
 
     def __exit__(self, excepcion_tipo, excepcion_contenido, excepcion_traceback):   #Aquí se recogen los errores
 
-        if not excepcion_tipo:
-            print("No ha habido errores la base de datos se ha conectado correctamente")
-        
-        else:
-            print(f"Ha ocurrido el siguiente error {excepcion_tipo}, {excepcion_contenido}")
 
+        try:
+            if not excepcion_tipo:
+                print("No ha habido errores la base de datos se ha conectado correctamente")
+                self.connection.commit()  
+                return True #Para evitar que se devuelva el error
+            
+            else:
+                print(f"Ha ocurrido el siguiente error {excepcion_tipo}, {excepcion_contenido}")
+                return excepcion_tipo
 
-        self.connection.commit()        
-        self.cursor.close()
-        self.connection.close()
-        
-        print("Hecho todo esta cerrado")
+        finally:
+            self.cursor.close()
+            self.connection.close()
 
-        return True #Para evitar que se devuelva el error
+            print("Hecho todo esta cerrado")
+
     
    
     def execute_ext(self, execute): #Se ejecuta después del __enter__ ya existe conexión
@@ -91,9 +94,11 @@ class DB_connection():
                 self.cursor.execute(query_limpia)
                 rows=self.cursor.fetchall()
                 
-                for row, i in enumerate(rows):
+                for i, row in enumerate(rows):
 
                     print(f"Fila {i} contiene {row}")
+                
+                return True
 
             raise ValueError
         
@@ -115,3 +120,21 @@ db_config={
 with DB_connection(db_config) as db:
 
     db.execute_ext("select * from subscriptions")
+
+
+#Test con prints
+def test_db_connection_debug(db_setting):
+    with DB_connection(db_setting) as db:
+        resultado_ok = db.execute_ext("SELECT * FROM subscriptions")
+        resultado_error = db.execute_ext("SELECT ERROR FROM subscriptions")
+        
+        print(f"\n=== DIAGNÓSTICO ===")
+        print(f"Resultado OK: {resultado_ok}")
+        print(f"Tipo OK: {type(resultado_ok)}")
+        print(f"Resultado ERROR: {resultado_error}")
+        print(f"Tipo ERROR: {type(resultado_error)}")
+        print(f"resultado_ok is True: {resultado_ok is True}")
+        print(f"resultado_error is None: {resultado_error is None}")
+
+
+test_db_connection_debug(db_config)

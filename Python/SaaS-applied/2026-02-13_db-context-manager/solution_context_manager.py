@@ -49,13 +49,16 @@ class DB_connection():
 
         try:
             if self.config:
-                self.connection=mysql.connector.connect(**self.config)
-                return self
+                self.connection=mysql.connector.connect(**self.config)  #El ** del diccionario lo separa en keys:values, para poder configurar, es más
+                return self                                             #legible si se escribe a mano
 
             else:
                 raise ConnectionAbortedError
         
         except ConnectionAbortedError as e:
+            raise e
+        
+        except mysql.connector.errors.ProgrammingError() as e:
             raise e
         
         except mysql.connector.Error as e:
@@ -67,20 +70,30 @@ class DB_connection():
 
 
         try:
-            if not excepcion_tipo:
+            if excepcion_tipo is None:
                 print("No ha habido errores la base de datos se ha conectado correctamente")
                 self.connection.commit()  
-                return True #Para evitar que se devuelva el error
+                #Para evitar que se devuelva el error
             
             else:
                 print(f"Ha ocurrido el siguiente error {excepcion_tipo}, {excepcion_contenido}")
+                self.connection.rollback()  #Otro rollback por si acaso
                 return excepcion_tipo
+            
+
+        except mysql.connector.errors.ProgrammingError as e:
+            raise "e"
+            
+        except mysql.connector.Error:
+            raise mysql.connector.Error("Ha ocurrido un error")
 
         finally:
             self.cursor.close()
             self.connection.close()
 
             print("Hecho todo esta cerrado")
+
+            return False #Evita truthy
 
     
    
@@ -98,11 +111,14 @@ class DB_connection():
 
                     print(f"Fila {i} contiene {row}")
                 
-                return True
+                return True #Si todo va ok
 
             raise ValueError
         
         except ValueError as e:
+            raise e
+        
+        except mysql.connector.errors.ProgrammingError as e:
             raise e
 
         except mysql.connector.Error as e:
@@ -122,13 +138,14 @@ with DB_connection(db_config) as db:
     db.execute_ext("select * from subscriptions")
 
 
+
 #Test con prints
 def test_db_connection_debug(db_setting):
     with DB_connection(db_setting) as db:
         resultado_ok = db.execute_ext("SELECT * FROM subscriptions")
         resultado_error = db.execute_ext("SELECT ERROR FROM subscriptions")
         
-        print(f"\n=== DIAGNÓSTICO ===")
+        print("\n=== DIAGNÓSTICO ===")
         print(f"Resultado OK: {resultado_ok}")
         print(f"Tipo OK: {type(resultado_ok)}")
         print(f"Resultado ERROR: {resultado_error}")

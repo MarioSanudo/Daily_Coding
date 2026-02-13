@@ -22,14 +22,6 @@ class Db_connection_prueba():  #Simulación funcionamiento conexión base de dat
             raise ValueError("Query Inválida")
         
         print({"Ejecutando": {query}})
-
-
-with Db_connection_prueba() as db:
-
-    print(db.execute("SELECT ERROR FROM USERS"))
-
-
-print("-------------------------------------------")
     
     
 
@@ -58,7 +50,7 @@ class DB_connection():
         except ConnectionAbortedError as e:
             raise e
         
-        except mysql.connector.errors.ProgrammingError() as e:
+        except mysql.connector.errors.ProgrammingError as e:
             raise e
         
         except mysql.connector.Error as e:
@@ -76,16 +68,8 @@ class DB_connection():
                 #Para evitar que se devuelva el error
             
             else:
-                print(f"Ha ocurrido el siguiente error {excepcion_tipo}, {excepcion_contenido}")
+                print(f"Ha ocurrido el siguiente error {excepcion_tipo.__name__}, {excepcion_contenido}")
                 self.connection.rollback()  #Otro rollback por si acaso
-                return excepcion_tipo
-            
-
-        except mysql.connector.errors.ProgrammingError as e:
-            raise "e"
-            
-        except mysql.connector.Error:
-            raise mysql.connector.Error("Ha ocurrido un error")
 
         finally:
             self.cursor.close()

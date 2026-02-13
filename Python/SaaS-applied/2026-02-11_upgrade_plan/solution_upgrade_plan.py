@@ -65,15 +65,63 @@ class User():
 
 
 Mario=User("kartingcroc@gmail.com", "Pro")
-
-
 print(Mario.update_plan(1))
 
 
+#Para test sin iinputs
+
+class User_tests():
+
+
+    def __init__(self, email, plan="FREE"):
+        self.email=email
+        self.plan=plan.upper()
+
+    @property
+    def actualplan_get(self):
+        return self.plan
     
-
-
-
+    @staticmethod
+    def input_clean(input_update):
+        update=str(input_update)
         
 
+        if not isinstance(update, str):
+            raise ValueError("El plan debe ser string")
+        
+
+        update=update.upper()
+
+        if update not in Plans.keys():
+            raise ValueError("Plan actual inválido")
+        
+        
+                
+        return update
     
+
+    def update_plan(self, update):
+
+        try:
+            update_limpio=User_tests.input_clean(update)
+
+            if str(self.plan).upper() in Plans.keys():
+                if self.price_actual_plan() < Plans[update_limpio.upper()]:    #Puede romperse si sobre update no metemos un string pero la idea del ej no es hacer
+                    self.plan = update_limpio                            #Otra func para validar la entrada
+                    return self.price_actual_plan()
+                
+                return "No puedes cambiar a un plan peor o igual"
+            
+
+        except ValueError:
+            return "Plan inválido o la entrada debe ser string"
+            
+        except Errores as e:
+            raise e
+
+    def price_actual_plan(self):
+        return Plans[self.plan]
+    
+
+#Podría usarse el with para instanciar y que ejecute los métodos __enter__ y __exit__ este ultimo muy útil para validar erorres de forma auto y ordenada
+

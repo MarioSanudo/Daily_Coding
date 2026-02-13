@@ -1,4 +1,5 @@
 from solution_context_manager import DB_connection
+from mysql.connector import ProgrammingError
 import pytest
 
 
@@ -19,6 +20,12 @@ def test_db_conection_certero(db_setting):
                             "user": "root" ,           
                             "password": "Hm07052005" ,
                             "database": "entreno_chat-gpt-user-orders" })])
+
+
 def test_db_conection_ERROR(db_setting):
-    with DB_connection(db_setting) as db:
-        assert db.execute_ext("select ERROR from subscriptions")=="Hola"
+
+    with pytest.raises(ProgrammingError) as Error:
+        with DB_connection(db_setting) as db:
+            assert db.execute_ext("select ERROR from subscriptions")
+
+        assert Error.value.errno == 1054

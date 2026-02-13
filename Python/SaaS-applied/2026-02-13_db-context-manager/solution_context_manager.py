@@ -77,7 +77,9 @@ class DB_connection():
 
             print("Hecho todo esta cerrado")
 
-            return False #Evita truthy
+        
+        return False #Evita truthy, si hay error se lanza si no hay error no se lanza nada y se ejecuta correctamente, ver como si se pone True, no hay error
+                     #en la consola aunque la sintaxis de SQL mal escrita
 
     
    
@@ -110,32 +112,35 @@ class DB_connection():
             raise e
 
 
-db_config={
-        "host": "localhost",
-        "user": "root" ,            #La función connect reconoce el json y lo implementa
-        "password": "Hm07052005" ,
-        "database": "entreno_chat-gpt-user-orders" 
-    }
 
-with DB_connection(db_config) as db:
+if __name__=="__main__":
 
-    db.execute_ext("select * from subscriptions")
+    db_config={
+            "host": "localhost",
+            "user": "root" ,            #La función connect reconoce el json y lo implementa
+            "password": "Hm07052005" ,
+            "database": "entreno_chat-gpt-user-orders" 
+        }
 
+    with DB_connection(db_config) as db:
 
-
-#Test con prints
-def test_db_connection_debug(db_setting):
-    with DB_connection(db_setting) as db:
-        resultado_ok = db.execute_ext("SELECT * FROM subscriptions")
-        resultado_error = db.execute_ext("SELECT ERROR FROM subscriptions")
-        
-        print("\n=== DIAGNÓSTICO ===")
-        print(f"Resultado OK: {resultado_ok}")
-        print(f"Tipo OK: {type(resultado_ok)}")
-        print(f"Resultado ERROR: {resultado_error}")
-        print(f"Tipo ERROR: {type(resultado_error)}")
-        print(f"resultado_ok is True: {resultado_ok is True}")
-        print(f"resultado_error is None: {resultado_error is None}")
+        db.execute_ext("select * from subscriptions")
 
 
-test_db_connection_debug(db_config)
+
+    #Test con prints
+    def test_db_connection_debug(db_setting):
+        with DB_connection(db_setting) as db:
+            resultado_ok = db.execute_ext("SELECT * FROM subscriptions")
+            resultado_error = db.execute_ext("SELECT ERROR FROM subscriptions")
+            
+            print("\n=== DIAGNÓSTICO ===")
+            print(f"Resultado OK: {resultado_ok}")
+            print(f"Tipo OK: {type(resultado_ok)}")
+            print(f"Resultado ERROR: {resultado_error}")
+            print(f"Tipo ERROR: {type(resultado_error)}")
+            print(f"resultado_ok is True: {resultado_ok is True}")
+            print(f"resultado_error is None: {resultado_error is None}")
+
+
+    test_db_connection_debug(db_config)

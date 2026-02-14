@@ -27,11 +27,12 @@ class Db_connection_prueba():  #Simulación funcionamiento conexión base de dat
 
 #Ejemplo más complejo simulando la conexión a una base de datos de verdad
 
-
 class DB_connection():
 
-    def __init__(self, db_config):   #Self es la instancia de la base de datos en este ejemplo
+    
 
+    def __init__(self, db_config):   #Self es la instancia de la base de datos en este ejemplo
+    
         self.config=db_config
         self.connection=None   #Todas los atributos que necesitaré para trabajar alrededor de la clase
         self.cursor=None
@@ -60,6 +61,7 @@ class DB_connection():
 
     def __exit__(self, excepcion_tipo, excepcion_contenido, excepcion_traceback):   #Aquí se recogen los errores
 
+        
 
         try:
             if excepcion_tipo is None:

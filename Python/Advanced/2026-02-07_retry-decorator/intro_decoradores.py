@@ -67,3 +67,30 @@ def sumar_2(x, y):
 
 
 sumar_2(6, 8)   #He vuelto a crear la función solo para poder mostrar el otro decorador
+
+
+
+#Varias formas de utilizar las instancias de los objetos
+
+def doble_numero_instanciada(num):  #Recibe el número de la función ya instanciada
+    return 2*num
+
+
+resultado=doble_numero_instanciada(sumar(10, 15))   #Aquí directamente paso el resultado
+print(resultado)
+
+
+def doble_numero_referencia(func):  #Podría ponerlo como decorador, no lo hago porque ya tiene una esa función
+    valor_func=func(10, 15)
+    return valor_func * 2
+
+
+resultado=doble_numero_referencia(sumar)
+print(resultado)
+
+
+def doble_numero_params(func):  #También sirve el decorador, paso la función con los parametros
+    resultado=func()
+    return resultado * 2
+
+print(doble_numero_params(lambda: sumar(10,15)))    #Sin lambda me va a dar error puede comprobarse, no se pasan los parámetros a la instancia interna

@@ -105,6 +105,51 @@ class User:
         return "El formato de fecha de creación no es correcto"
 
 
+
+class User_Manager:
+
+    @classmethod
+    def __init__(cls):
+        cls._user={}
+
+    @classmethod    
+    def add_user(cls, email):
+        if not email in cls._user.keys():
+            usuario=User(email) #Se hacen las comprobaciones a la hora de instanciar
+            cls._user={usuario.email: usuario}
+        
+        return f"Ya hay un usuario con el email {email} registrado"
+
+    @classmethod
+    def get_user(cls, email):
+
+        if User.email_checker(email):
+            if email in cls._user.keys():
+                return cls._user[email] #Me devuelve el valor que es la instancia
+            
+            return None
+        
+        return None
+    
+    @classmethod        
+    def get_users_by_subscription(cls, subscription):
+
+        if User.subscription_tier_checker(subscription):
+            lista=[]
+
+            for usuario in cls._user.items():
+                if usuario[1]._subscription_tier == subscription:
+                    lista.append(usuario[1])    #Añadimos el objeto, segundo valor de la tupla
+                continue
+            
+            return lista
+
+        return None    
+
+
+            
+
+
 if __name__=="__main__":
         
         Mario=User("kartingcroc@gmail.com")
@@ -115,10 +160,20 @@ if __name__=="__main__":
 
         Gustavo=User("gus@gmail.com")
         print(Gustavo)
-            
- 
-    
+
+        Patroclo=User("Patricclu@gmail.com")
+
+
+
+
 #Parte del código se ha quedado algo enrebesado por el problema de tener que sacar el .keys(), o .values() del la lista que devuelve el metodos de dic
 #No lo había previsto y por eso no creé una función para mantenerlo más ordenado
         
+"""
+dic={"Rojo":1, "Verde":2}
+print(dic)
+                            Pruebas tipo que voy utilizando para en ocasiones poder continuar el código con seguridad
+for d in dic.items():
+    print(d[1])
 
+"""

@@ -32,3 +32,6 @@ Email debe contener "@" y "."
 Email debe tener al menos 5 caracteres
 Subscription tier solo puede ser uno de los 3 valores permitidos
 Email no puede cambiarse después de creación (inmutable)
+
+
+Utiilidad principalmente a la hora de entender mejor como guardar objetos aunque no sea en memoria sino de forma provisional y manejo de clases.

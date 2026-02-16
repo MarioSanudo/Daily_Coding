@@ -47,20 +47,26 @@ def test_email_invalido(email_input):
         assert User.email_checker(email_input)
 
 
-"""
+
 @pytest.fixture
 def creacion_usuarios():
     lista_usuarios=[]
-    email_1="kartingcroc@gmail.com";    email_2="mari2o@hotmail.com";   email_3="marito12@email.es"
-    usu_1=User_Manager.add_user(email_1); usu_2=User_Manager.add_user(email_2); usu_3=User_Manager.add_user(email_3)
-    lista_usuarios.append(usu_1, usu_2, usu_3)
-    print(lista_usuarios)
+    email_1="kartingcroc@gmail.com"
+    email_2="mari2o@hotmail.com"
+    email_3="marito12@email.es"
+
+
+    usu_1=User_Manager.add_user(email_1)
+    usu_2=User_Manager.add_user(email_2)
+    usu_3=User_Manager.add_user(email_3)
+
+
+    lista_usuarios.extend([usu_1, usu_2, usu_3])
     return lista_usuarios
     
 
 
 def test_User_Manager_lengthl(creacion_usuarios):
-    lista=creacion_usuarios()
+    lista=creacion_usuarios
     assert len(lista) == 3
 
-"""

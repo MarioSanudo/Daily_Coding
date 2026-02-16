@@ -28,7 +28,7 @@ class User:
     
     @classmethod
     def email_checker(cls, email):
-        while True:
+        while True:     #No es necesario por como he estructurado el código
             try:
 
                 if not isinstance(email, str):
@@ -108,7 +108,7 @@ class User:
 
 class User_Manager:
 
-    _user={}
+    _user={}    #Atributo de clase común en todas las instancias
 
     @classmethod    
     def add_user(cls, email):
@@ -166,7 +166,7 @@ if __name__=="__main__":
 
 
         manejador=User_Manager()
-        manejador.add_user("msc779@alumnos.unican.es")
+        manejador.add_user("msc779@alumnos.unican.es")      #Importante que se añada desde las instancias porque si no lo único que cambia es el atributo de clase en cada instancia
         print(manejador.get_user("msc779@alumnos.unican.es"))
 
         manejador.add_user("pinochet@fascismo.com")

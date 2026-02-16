@@ -108,15 +108,14 @@ class User:
 
 class User_Manager:
 
-    @classmethod
-    def __init__(cls):
-        cls._user={}
+    _user={}
 
     @classmethod    
     def add_user(cls, email):
         if not email in cls._user.keys():
             usuario=User(email) #Se hacen las comprobaciones a la hora de instanciar
             cls._user={usuario.email: usuario}
+            return cls._user
         
         return f"Ya hay un usuario con el email {email} registrado"
 
@@ -147,13 +146,13 @@ class User_Manager:
         return None    
 
 
-            
-
 
 if __name__=="__main__":
         
         Mario=User("kartingcroc@gmail.com")
         print(Mario)
+        print(type(Mario))
+
         print(Mario.get_account_age_days())
         Mario.upgrade_subscription_tier("PRO")
         print(Mario._subscription_tier)
@@ -162,6 +161,16 @@ if __name__=="__main__":
         print(Gustavo)
 
         Patroclo=User("Patricclu@gmail.com")
+
+
+        manejador=User_Manager()
+        manejador.add_user("msc779@alumnos.unican.es")
+        print(manejador.get_user("msc779@alumnos.unican.es"))
+
+        manejador.add_user("pinochet@fascismo.com")
+        print(User_Manager._user)
+
+        print(User_Manager.get_users_by_subscription("FREE"))
 
 
 

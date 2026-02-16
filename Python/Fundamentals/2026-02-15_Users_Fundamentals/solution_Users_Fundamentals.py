@@ -11,7 +11,7 @@ class User:
         if User.email_checker(email) is True and User.subscription_tier_checker(subscription_tier.keys()) is True:
             return super().__new__(cls)
         
-        return "No se va a instanciar un objeto que no cumple los requisitos"
+        return None
 
 
     def __init__(self, email: str, created_at: datetime=datetime.now(), is_active: bool=True, subscription_tier: dict={"FREE": 0}):
@@ -183,6 +183,15 @@ if __name__=="__main__":
 #Parte del código se ha quedado algo enrebesado por el problema de tener que sacar el .keys(), o .values() del la lista que devuelve el metodos de dic
 #No lo había previsto y por eso no creé una función para mantenerlo más ordenado
         
+"""def __init__(self, email, subscription_tier={"FREE": 0}):
+    if not User.email_checker(email):
+        raise ValueError("Email inválido")              Otra forma de hacer las comprobaciones
+    self._email = email
+"""
+
+
+
+
 """
 dic={"Rojo":1, "Verde":2}
 print(dic)

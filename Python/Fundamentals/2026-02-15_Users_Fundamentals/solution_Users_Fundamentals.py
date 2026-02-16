@@ -22,8 +22,8 @@ class User:
         self._is_active=is_active
 
 
-    def __repr__(self):
-        return f"Usuario {self._email}, subscripción {self._subscription_tier}, estando activo? {self._is_active}"
+    def __repr__(self):      
+       return f"Usuario {self._email}, subscripción {self._subscription_tier}, estando activo? {self._is_active}"
     
     
     @classmethod
@@ -46,7 +46,7 @@ class User:
 
 
             except AttributeError as e:
-                raise e("Tienes un número por email, mal")
+                raise e
             
 
     @property
@@ -114,7 +114,7 @@ class User_Manager:
     def add_user(cls, email):
         if not email in cls._user.keys():
             usuario=User(email) #Se hacen las comprobaciones a la hora de instanciar
-            cls._user={usuario.email: usuario}
+            cls._user[usuario.email]= usuario
             return cls._user
         
         return f"Ya hay un usuario con el email {email} registrado"
@@ -137,13 +137,15 @@ class User_Manager:
             lista=[]
 
             for usuario in cls._user.items():
-                if usuario[1]._subscription_tier == subscription:
+
+                if usuario[1]._subscription_tier == subscription:   #Tiene que ser dic
                     lista.append(usuario[1])    #Añadimos el objeto, segundo valor de la tupla
                 continue
             
             return lista
 
         return None    
+
 
 
 
@@ -170,8 +172,11 @@ if __name__=="__main__":
         manejador.add_user("pinochet@fascismo.com")
         print(User_Manager._user)
 
-        print(User_Manager.get_users_by_subscription("FREE"))
+        print(manejador.add_user("msc779@alumnos.unican.es"))
 
+        print(len(User_Manager._user))
+
+        print(User_Manager.get_users_by_subscription({"FREE": 0}))
 
 
 

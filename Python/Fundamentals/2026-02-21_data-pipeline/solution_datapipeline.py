@@ -49,7 +49,6 @@ def group_by_user(list_dic_session):
     users_name_dic={}
 
     for dic_session in list_dic_session:
-        name_list.append(dic_session["user"])
 
         match dic_session:
 
@@ -58,6 +57,8 @@ def group_by_user(list_dic_session):
             
             case _:
                 users_name_dic[str(nombre)]=[dic_session]
+        
+        name_list.append(dic_session["user"])
         
     return users_name_dic
 
@@ -78,9 +79,8 @@ def sumarize_user(users_name_dic):
 
             total_minutes+=user_dic["duration_min"]
             avg_power+=float(user_dic["avg_power"])
-            i+=1
         
-        sum_user_dic={"total_sessions": total_sessions, "avg_power": avg_power/i, "total_minutes": total_minutes}
+        sum_user_dic={"total_sessions": total_sessions, "avg_power": avg_power/total_sessions, "total_minutes": total_minutes}
         lista_users_sum.append(sum_user_dic)
         
     return lista_users_sum

@@ -37,8 +37,10 @@ span{
 }
 
 .titulo{
-    text-align: center;
     font-size: 45px;
+    display: flex;
+    flex:1;
+
 }
 
 .navbar{
@@ -48,9 +50,15 @@ span{
     border-right: 5px #ffffff solid;
     border-top: 5px #ffffff solid;
     background-color: #1e1e2e;
+    text-align: left;
 }
 
 .main-layout{  /* Asi no afecta a los clickables su altura */
     display: flex;
     flex:1;
 }
+
+.main-layout h1{
+    text-align: center;
+}
+

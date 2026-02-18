@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+}
+
+span{
+    vertical-align: middle;
+}
+
+.botones{
+    margin: 35px 10px;
+    padding: 15px;
+    background-color: bisque;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    color: #B06E6D;
+    display: flex;
+}
+.botones:hover{
+    background-color: antiquewhite;
+    cursor: pointer;
+}
+
+.bicicleta{
+    width: 64px;
+    height: 64px;
+}
+
+.titulo{
+    text-align: center;
+    font-size: 45px;
+}
+
+.navbar{
+    padding:20px 16px;
+    width: 220px;
+    border: hidden;
+    border-right: 5px #ffffff solid;
+    border-top: 5px #ffffff solid;
+    background-color: #1e1e2e;
+}
+
+.main-layout{  /* Asi no afecta a los clickables su altura */
+    display: flex;
+    flex:1;
+}

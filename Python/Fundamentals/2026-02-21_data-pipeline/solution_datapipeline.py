@@ -71,7 +71,6 @@ def sumarize_user(users_name_dic):
     for user_dic_list in users_name_dic.values():
         total_minutes=0
         avg_power=0
-        i=0
         
         total_sessions=int(len(user_dic_list))
 

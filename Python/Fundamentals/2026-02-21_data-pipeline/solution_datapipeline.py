@@ -65,25 +65,23 @@ def group_by_user(list_dic_session):
 
 def sumarize_user(users_name_dic):
 
-    for users_list in users_name_dic.values():
+    lista_users_sum=[]
+
+    for user_dic_list in users_name_dic.values():
         total_minutes=0
         avg_power=0
-        sum_user_dic={};    lista_users_sum=[]
+        i=0
+        
+        total_sessions=int(len(user_dic_list))
 
-        print(user_list)
+        for user_dic in user_dic_list:
 
-        for user_list in users_list:
-            total_sessions=int(len(users_list))
-
-            for session in user_list:
-                print(session)
-                print(session["duration_min"])
-
-                total_minutes+=session["duration_min"]
-                avg_power+=float(session["avg_power"])
-
-            sum_user_dic={"tota_sessions": total_sessions, "avg_power": avg_power, "total_minutes": total_minutes}
-            lista_users_sum.append(sum_user_dic)
+            total_minutes+=user_dic["duration_min"]
+            avg_power+=float(user_dic["avg_power"])
+            i+=1
+        
+        sum_user_dic={"total_sessions": total_sessions, "avg_power": avg_power/i, "total_minutes": total_minutes}
+        lista_users_sum.append(sum_user_dic)
         
     return lista_users_sum
 
@@ -113,6 +111,5 @@ if __name__=="__main__":
     list_dic_session=filter_valid(raw_sessions)
     normalize_list_dic_session=normalize_session(list_dic_session)
     users_name_dic=group_by_user(normalize_list_dic_session)
-    print(users_name_dic)
     sumarize_users=sumarize_user(users_name_dic)
-    print(sumarize_user)
+    print(sumarize_users)

@@ -4,7 +4,7 @@
 def valid_inseam_cm(inseam_cm):
     try:
         inseam_cm=float(inseam_cm)
-        if inseam_cm not in range(50, 120):
+        if not (50<=inseam_cm<=120):
             raise ValueError
         
         return inseam_cm
@@ -15,7 +15,7 @@ def valid_inseam_cm(inseam_cm):
 
 def valid_method(method):
 
-    if method.lower().strip() == ("lemond" or "hamley"):
+    if method.lower().strip() in ("lemond" or "hamley"):
         return method.lower().strip()
     
     return None

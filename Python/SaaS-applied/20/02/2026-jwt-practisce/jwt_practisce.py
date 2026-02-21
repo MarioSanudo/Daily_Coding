@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity, get_jwt
 import datetime
 from dotenv import load_dotenv
 import os
@@ -33,12 +33,14 @@ def generate_token():
     print(f"Email del usuario {email} y su contraseña es {password}")
 
     current_time=datetime.datetime.now()
-    additional_time= current_time + datetime.timedelta(seconds=30)
+    additional_time= current_time + datetime.timedelta(minutes=10)
 
     expire_time=additional_time - current_time
     print(expire_time)
+
+    additional_info={"Aficiones": "Ciclismo", "Edad": 20}
     
-    token=create_access_token(email, expires_delta= expire_time)
+    token=create_access_token(email, expires_delta= expire_time, additional_claims=additional_info)
 
 
     return token
@@ -51,6 +53,14 @@ def check_token():
     email=get_jwt_identity()
     print(email)
     return jsonify({email: "Token Válido"})
+
+
+
+@app.route("/additional_params", methods=["GET"])
+@jwt_required()
+def getting_additional_params():
+    return get_jwt()        #Devolvemos toda la info del json y además del claim que hemos añadido
+
     
 
 

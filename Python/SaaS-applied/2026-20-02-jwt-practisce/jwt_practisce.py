@@ -36,8 +36,16 @@ app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///" + db_route.as_posix()
 app.config["TRACK_MODIFICATIONS"]=False
 
 #Después de configurar
-db.init_app(app)
+db.init_app(app)    #db será una variable global que podré usar en todas las rutas o funciones
 JWT.init_app(app)   #Inicializamos como siempre sin hardcoding
+
+
+@JWT.token_in_blocklist_loader
+def check_token_is_revoked(token_header, token_payload): #Coge la info del decorador, y todos los ficheros de lectura los procesa
+    jti=token_payload["jti"]
+    jti=db.session.query(Jwt_Revoque).filter_by(jti=jti).scalar()
+    return jti is not None
+
 
 @app.route("/login", methods=["POST"])
 def generate_token():
@@ -89,8 +97,7 @@ def check_token():
 
 @app.route("/additional_params", methods=["GET"])
 @jwt_required()
-def getting_additional_params():
-    print(Person._user)
+def getting_additional_params():    
     return get_jwt()        #Devolvemos toda la info del json y además del claim que hemos añadido
 
 

@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity, get_jwt
 import datetime
 from dotenv import load_dotenv
-from jwt_db_revoke import User, Jwt_Revoque, db, User_Jwt
+from jwt_db_revoke import User, Jwt_Revoque, db
 from pathlib import Path
 import os
 
@@ -104,9 +104,11 @@ def logout():
     #print(user.email)       
 
     user_id=db.session.query(User).filter_by(email=email).first()
-    db.session.add(Jwt_Revoque(jti=jti))
-    db.session.add(User_Jwt(user_id=user_id.id, jwt_id=jti))
+
+    revoked=Jwt_Revoque(jti=jti, user_id=user_id.id)
+    db.session.add(revoked)
     db.session.commit()
+
     return jsonify(msg="Token revocked")
     
 

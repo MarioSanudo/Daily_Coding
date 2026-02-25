@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Api, Resource
+from flask_restful import Api
 from biomechanics import calculate_saddle_height
 
 app=Flask(__name__)

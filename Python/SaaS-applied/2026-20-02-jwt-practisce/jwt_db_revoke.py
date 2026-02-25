@@ -18,7 +18,7 @@ class Jwt_Revoque(db.Model):    #Relación 1:N, un usuario con varios tokens ind
 
     id=db.Column(db.Integer(), primary_key=True)
     jti=db.Column(db.String(64), nullable=False, index=True)
-    created_at=db.Column(db.DateTime(), nullable=False, default=datetime.now())
+    created_at=db.Column(db.DateTime(), nullable=False, default=datetime.now)
 
     user_id=db.Column(db.ForeignKey("user.id"), nullable=False)
     user=db.relationship("User", back_populates="jwt")
